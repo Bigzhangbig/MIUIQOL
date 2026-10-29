@@ -46,6 +46,7 @@ def verify(apk, aapt2):
                           if line.strip() and not line.startswith("#"))
         assert properties["minApiVersion"] == "101", properties
         assert properties["targetApiVersion"] == "101", properties
+        assert properties["staticScope"] == "true", "QOL only supports its seven fixed target packages"
         scopes = archive.read(PREFIX + "scope.list").decode().splitlines()
         assert scopes == expected_scopes and len(scopes) == 7, scopes
         assert "assets/xposed_init" not in names, "Legacy entry still packaged"
@@ -66,7 +67,7 @@ def verify(apk, aapt2):
     assert "io.github.libxposed.service.XposedProvider" in manifest
     for obsolete in ("xposedmodule", "xposedminversion", "xposedsharedprefs", "xposedscope"):
         assert obsolete not in manifest, f"Legacy metadata remains: {obsolete}"
-    print(f"PASS {apk}: API101 descriptor, 7 scopes, entry DEX class, provider, compileOnly APIs")
+    print(f"PASS {apk}: API101 static descriptor, 7 scopes, entry DEX class, provider, compileOnly APIs")
 
 
 if __name__ == "__main__":

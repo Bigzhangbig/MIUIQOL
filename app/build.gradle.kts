@@ -7,8 +7,8 @@ plugins {
 android {
     defaultConfig {
         applicationId = "io.github.chsbuffer.miuihelper"
-        versionCode = 20
-        versionName = "1.1.17-api101.1"
+        versionCode = 21
+        versionName = "1.1.17-api101.2"
         ndk {
             //noinspection ChromeOsAbiSupport
             abiFilters.add("arm64-v8a")

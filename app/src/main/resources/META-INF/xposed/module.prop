@@ -2,4 +2,4 @@ minApiVersion=101
 # The existing hook implementation uses the API101 legacy compatibility backend.
 # Raising this target requires a separate migration of every legacy hook.
 targetApiVersion=101
-staticScope=false
+staticScope=true
