@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="framework_status_title">Framework connection and settings</string>
+    <string name="framework_disconnected">No API101 framework service connected. Enable this module and its recommended scope in LSPosed, then reopen settings. Your edits are saved locally.</string>
+    <string name="framework_syncing">Sending settings to the framework…</string>
+    <string name="framework_synced">Settings sent to the framework. Force stop the corresponding app to apply them. Connection alone does not confirm that its hooks are running.</string>
+    <string name="framework_sync_failed">Settings could not be sent. Your local settings are kept. Tap to retry.</string>
+    <string name="framework_local_error">Settings could not be saved to local storage. They have not been sent. Tap to retry.</string>
+    <string name="fork_check_updates_title">Check for updates</string>
+    <string name="fork_check_updates_summary">Open the latest release of this fork on GitHub to download updates manually.</string>
+    <string name="fork_source_title">Fork source code</string>
+    <string name="fork_source_summary">Browse the API101 branch maintained by Bigzhangbig.</string>
+    <string name="fork_releases_url" translatable="false">https://github.com/Bigzhangbig/MIUIQOL/releases/latest</string>
+    <string name="fork_source_url" translatable="false">https://github.com/Bigzhangbig/MIUIQOL/tree/fix/lsposed-api101</string>
+</resources>

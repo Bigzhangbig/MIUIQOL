@@ -1,8 +1,7 @@
-@file:Suppress("DEPRECATION") @file:SuppressLint("WorldReadableFiles")
+@file:Suppress("DEPRECATION")
 
 package io.github.chsbuffer.miuihelper
 
-import android.annotation.SuppressLint
 import android.app.Activity
 import android.app.AlertDialog
 import android.os.Build
@@ -12,7 +11,8 @@ import android.preference.Preference.OnPreferenceChangeListener
 import android.preference.Preference.OnPreferenceClickListener
 import android.preference.PreferenceFragment
 import android.preference.SwitchPreference
-import kotlin.system.exitProcess
+import io.github.chsbuffer.miuihelper.prefs.FrameworkPreferences
+import io.github.chsbuffer.miuihelper.prefs.HookPreferences
 
 
 class SettingsActivity : Activity() {
@@ -26,28 +26,26 @@ class SettingsActivity : Activity() {
     class SettingsFragment : PreferenceFragment(), OnPreferenceChangeListener,
         OnPreferenceClickListener {
 
+        private val statusListener: (FrameworkPreferences.Status) -> Unit = { status ->
+            val summary = when (status) {
+                FrameworkPreferences.Status.DISCONNECTED -> R.string.framework_disconnected
+                FrameworkPreferences.Status.SYNCING -> R.string.framework_syncing
+                FrameworkPreferences.Status.SYNCED -> R.string.framework_synced
+                FrameworkPreferences.Status.SYNC_FAILED -> R.string.framework_sync_failed
+                FrameworkPreferences.Status.LOCAL_ERROR -> R.string.framework_local_error
+            }
+            findPreference("framework_status")?.setSummary(summary)
+        }
+
         @Deprecated("Deprecated in Java")
         override fun onCreate(savedInstanceState: Bundle?) {
             super.onCreate(savedInstanceState)
+            preferenceManager.sharedPreferencesMode = MODE_PRIVATE
+            preferenceManager.sharedPreferencesName = HookPreferences.GROUP
             addPreferencesFromResource(R.xml.header_preferences)
-
-            val isModuleActivated: Boolean = try {
-                context.getSharedPreferences("prefs", MODE_WORLD_READABLE)
-                true
-            } catch (e: SecurityException) {
-                false
-            }
-
-            if (!isModuleActivated) {
-                addPreferencesFromResource(R.xml.warn_preference)
-                findPreference("warn").onPreferenceClickListener = this
-                return
-            }
-
-            preferenceManager.sharedPreferencesMode = MODE_WORLD_READABLE
-            preferenceManager.sharedPreferencesName = "prefs"
             addPreferencesFromResource(R.xml.root_preferences)
 
+            findPreference("framework_status").onPreferenceClickListener = this
             findPreference("behavior_record_enhance").onPreferenceChangeListener = this
             findPreference("kill_system_ui").onPreferenceClickListener = this
             if (Build.VERSION.SDK_INT < Build.VERSION_CODES.S) {
@@ -58,6 +56,17 @@ class SettingsActivity : Activity() {
                 removePreference("notification_settings_no_white_list")
                 removePreference("restore_wallet_tile")
             }
+        }
+
+        override fun onResume() {
+            super.onResume()
+            FrameworkPreferences.addListener(statusListener)
+            FrameworkPreferences.refresh()
+        }
+
+        override fun onPause() {
+            FrameworkPreferences.removeListener(statusListener)
+            super.onPause()
         }
 
         private fun removePreference(key: String) {
@@ -83,8 +92,9 @@ class SettingsActivity : Activity() {
 
         @Deprecated("Deprecated in Java")
         override fun onPreferenceClick(preference: Preference) = when (preference.key) {
-            "warn" -> {
-                exitProcess(0)
+            "framework_status" -> {
+                FrameworkPreferences.refresh()
+                true
             }
             "kill_system_ui" -> {
                 AlertDialog.Builder(context).setMessage(R.string.kill_system_ui_confirm)

@@ -1,15 +1,13 @@
 package io.github.chsbuffer.miuihelper.model
 
-import de.robv.android.xposed.XSharedPreferences
+import android.content.SharedPreferences
 import de.robv.android.xposed.callbacks.XC_LoadPackage.LoadPackageParam
-import io.github.chsbuffer.miuihelper.BuildConfig
+import io.github.chsbuffer.miuihelper.prefs.HookPreferences
 
 abstract class Hook {
     companion object {
-        val xPrefs = XSharedPreferences(
-            BuildConfig.APPLICATION_ID,
-            "prefs"
-        )
+        val xPrefs: SharedPreferences
+            get() = HookPreferences.preferences
     }
 
     protected lateinit var lpparam: LoadPackageParam

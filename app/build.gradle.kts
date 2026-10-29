@@ -7,8 +7,8 @@ plugins {
 android {
     defaultConfig {
         applicationId = "io.github.chsbuffer.miuihelper"
-        versionCode = 19
-        versionName = "1.1.17"
+        versionCode = 20
+        versionName = "1.1.17-api101.1"
         ndk {
             //noinspection ChromeOsAbiSupport
             abiFilters.add("arm64-v8a")
@@ -58,8 +58,12 @@ dependencies {
     implementation(libs.dexkit)
     implementation(libs.androidx.annotation)
     compileOnly(libs.xposed.api)
+    // Target API101 permits the existing legacy hook implementation.
+    compileOnly(libs.libxposed.api)
+    implementation(libs.libxposed.service)
     compileOnly(project(":miuistub"))
 
     implementation(libs.refine.runtime)
     implementation(libs.kotlin.stdlib.jdk8)
+    testImplementation("junit:junit:4.13.2")
 }

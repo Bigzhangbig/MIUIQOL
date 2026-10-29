@@ -3,7 +3,7 @@
 import com.android.build.api.dsl.CommonExtension
 import com.android.build.gradle.api.AndroidBasePlugin
 
-val sdk by extra(35)
+val sdk by extra(36)
 
 plugins {
     alias(libs.plugins.android.application) apply false
@@ -23,7 +23,11 @@ subprojects {
 
             packaging.resources {
                 excludes += arrayOf(
-                    "META-INF/**",
+                    "META-INF/LICENSE*",
+                    "META-INF/NOTICE*",
+                    "META-INF/DEPENDENCIES",
+                    "META-INF/*.kotlin_module",
+                    "META-INF/versions/**",
                     "kotlin/**",
                     "**.bin"
                 )

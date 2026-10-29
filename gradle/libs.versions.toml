@@ -1,8 +1,10 @@
 [versions]
-agp = "8.7.0"
-kotlin = "2.0.20"
+agp = "8.13.0"
+kotlin = "2.2.21"
 annotation = "1.8.2"
 xposed-api = "82"
+libxposed-api = "101.0.1"
+libxposed-service = "101.0.0"
 dexkit = "2.0.2"
 preference = "1.2.1"
 refine = "4.4.0"
@@ -14,6 +16,8 @@ refine-annotation = { module = "dev.rikka.tools.refine:annotation", version.ref 
 refine-annotation-processor = { module = "dev.rikka.tools.refine:annotation-processor", version.ref = "refine" }
 refine-runtime = { module = "dev.rikka.tools.refine:runtime", version.ref = "refine" }
 xposed-api = { module = "de.robv.android.xposed:api", version.ref = "xposed-api" }
+libxposed-api = { module = "io.github.libxposed:api", version.ref = "libxposed-api" }
+libxposed-service = { module = "io.github.libxposed:service", version.ref = "libxposed-service" }
 dexkit = { module = "org.luckypray:dexkit", version.ref = "dexkit" }
 kotlin-stdlib-jdk8 = { module = "org.jetbrains.kotlin:kotlin-stdlib-jdk8", version.ref = "kotlin" }
 

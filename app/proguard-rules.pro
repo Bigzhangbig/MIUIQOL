@@ -14,8 +14,10 @@
 
 -dontobfuscate
 -optimizations
--keep class io.github.chsbuffer.miuihelper.MainHook {
-    void handleLoadPackage(...);
+-keep class io.github.chsbuffer.miuihelper.ModernXposedInit {
+    public <init>();
+    public void onModuleLoaded(...);
+    public void onPackageReady(...);
 }
 
 # Uncomment this to preserve the line number information for

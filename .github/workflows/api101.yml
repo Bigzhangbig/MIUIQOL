@@ -1,0 +1,41 @@
+name: API101 compatibility
+
+on:
+  push:
+    branches: [fix/lsposed-api101]
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '21'
+          cache: gradle
+      - uses: android-actions/setup-android@v3
+      - name: Install Android SDK packages
+        run: sdkmanager 'platforms;android-36' 'build-tools;35.0.0'
+      - name: Test and build debug and optimized release
+        run: bash gradlew --no-daemon :app:testDebugUnitTest :app:assembleDebug :app:assembleRelease
+      - name: Verify shipped API101 module descriptors and DEX classes
+        run: |
+          python3 tools/verify_apk.py app/build/outputs/apk/debug/app-debug.apk --aapt2 "$ANDROID_HOME/build-tools/35.0.0/aapt2"
+          python3 tools/verify_apk.py app/build/outputs/apk/release/app-release-unsigned.apk --aapt2 "$ANDROID_HOME/build-tools/35.0.0/aapt2"
+      - uses: actions/upload-artifact@v4
+        with:
+          name: MIUIQOL-API101-APKs
+          path: app/build/outputs/apk/**/*.apk
+          if-no-files-found: error
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: MIUIQOL-preferences-test-results
+          path: app/build/test-results/**/*.xml
+          if-no-files-found: warn

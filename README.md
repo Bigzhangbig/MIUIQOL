@@ -1,3 +1,7 @@
+此仓库是原作者 [ChsBuffer 的 MIUIQOL](https://github.com/chsbuffer/MIUIQOL) 的 **API101 兼容 Fork**。
+下载和后续更新见 [本 Fork 的 GitHub Releases](https://github.com/Bigzhangbig/MIUIQOL/releases/latest)，模块设置中的“检查更新”也会打开此页面。
+功能 Hook 保留 target API101 允许的 legacy API82 兼容后端；具体适配与验证范围见 [API101 说明](docs/API101.md)。以下保留原作者的模块介绍和社区入口。
+
 <div align="center">
    <h1>MIUI 生活质量提升</h1>
    <p>

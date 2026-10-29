@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="framework_status_title">框架连接与配置</string>
+    <string name="framework_disconnected">尚未连接 API101 框架服务。请在 LSPosed 中启用模块、勾选推荐作用域，再重新打开设置。更改会保存在本机。</string>
+    <string name="framework_syncing">正在将配置发送到框架…</string>
+    <string name="framework_synced">配置已发送到框架。强行停止对应应用后生效。服务连接成功不代表目标应用中的 Hook 已运行。</string>
+    <string name="framework_sync_failed">配置发送失败，本机设置已保留。点此重试。</string>
+    <string name="framework_local_error">配置无法写入本机存储，尚未发送。点此重试。</string>
+    <string name="fork_check_updates_title">检查更新</string>
+    <string name="fork_check_updates_summary">打开此 Fork 的 GitHub 最新版本页面，手动下载安装包。</string>
+    <string name="fork_source_title">Fork 源码</string>
+    <string name="fork_source_summary">查看 Bigzhangbig 维护的 API101 分支。</string>
+</resources>
